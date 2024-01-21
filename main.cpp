@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include <array>
+#include <vector>
+#include <climits>
 
 using namespace std;
 
@@ -25,10 +26,10 @@ int appearCount(vector<int>&, size_t, int);
 // performs simulation of most frequent used algorithm
 void mfu(vector<int>[]);
 
-fstream fOutput("../output.txt",ios::out);
+fstream fOutput("output.txt",ios::out);
 int main()
 {
-	fstream fInput("../input.txt",ios::in);
+	fstream fInput("input.txt",ios::in);
 	if(!fInput.good())
 	{
 		cout<<"no input file!";
@@ -60,7 +61,7 @@ int main()
 			return 1;
 	}
 
-	cout<<"Choose an algorithm:\n\t1 — FIFO\n\t2 — OPT\n\t3 — LRU\n\t4 — MFU\n>> ";
+	cout<<"Choose an algorithm:\n\t1 - FIFO\n\t2 - OPT\n\t3 - LRU\n\t4 - MFU\n>> ";
 	char userChoose=static_cast<char>(getchar());
 
 	switch(userChoose)
