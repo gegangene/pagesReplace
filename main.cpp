@@ -25,9 +25,10 @@ int appearCount(vector<int>&, size_t, int);
 // performs simulation of most frequent used algorithm
 void mfu(vector<int>[]);
 
+fstream fOutput("../output.txt",ios::out);
 int main()
 {
-	fstream fInput("../input.txt",ios::in), fOutput("../output.txt",ios::out);
+	fstream fInput("../input.txt",ios::in);
 	if(!fInput.good())
 	{
 		cout<<"no input file!";
@@ -166,6 +167,10 @@ int sumTab(int tab[], size_t tabSize)
 
 void fifo(vector<int> tab[])
 {
+	fOutput<<"Algorithm: FIFO\n\nstates of frames:\n";
+	fOutput<<"-----------------\n";
+	cout<<"states of frames:\n";
+	cout<<"-----------------\n";
 	const size_t maxID=vectorMax(tab[0])+1;
 	int errors[maxID];
 	for(auto &i: errors)
@@ -184,10 +189,12 @@ void fifo(vector<int> tab[])
 		bool isThere_=false;
 		for(auto &ii: frames)
 		{
+			fOutput<<ii<<"\t";
 			cout<<ii<<"\t";
 			if(ii==i)
 				isThere_=true;
 		}
+		fOutput<<"\n";
 		cout<<"\n";
 		if(!isThere_)
 		{
@@ -200,12 +207,20 @@ void fifo(vector<int> tab[])
 	for(auto &ii: frames)
 	{
 		cout<<ii<<"\t";
+		fOutput<<ii<<"\t";
 	}
-//	for(int i=0; i<maxID; ++i)
-//	{
-//		cout<<"\n"<<i<<"\t"<<errors[i];
-//	}
+
+	fOutput<<"\n\nNo of page faults for every page ID:\n";
+	fOutput<<"------------------------------------";
+	cout<<"\n\nNo of page faults for every page ID:\n";
+	cout<<"------------------------------------";
+	for(int i=0; i<maxID; ++i)
+	{
+		fOutput<<'\n'<<i<<":\t"<<errors[i];
+		cout<<'\n'<<i<<":\t"<<errors[i];
+	}
 	cout<<"\n\n% of page faults among all requests: "<<static_cast<double>(sumTab(errors,maxID))/(static_cast<double>(tab[0].size()))*100;
+	fOutput<<"\n\n% of page faults among all requests: "<<static_cast<double>(sumTab(errors,maxID))/(static_cast<double>(tab[0].size()))*100;
 }
 
 int nextRequest(vector<int> &givenVector, size_t currentPos, int &currentVal)
@@ -222,6 +237,10 @@ int nextRequest(vector<int> &givenVector, size_t currentPos, int &currentVal)
 
 void opt(vector<int> tab[])
 {
+	fOutput<<"Algorithm: OPT\n\nstates of frames:\n";
+	fOutput<<"-----------------\n";
+	cout<<"states of frames:\n";
+	cout<<"-----------------\n";
 	const size_t maxID=vectorMax(tab[0])+1;
 	// { noOfErrors[ForThisID] }
 	int errors[maxID];
@@ -240,10 +259,12 @@ void opt(vector<int> tab[])
 		bool isThere_=false;
 		for(auto &frame: frames)
 		{
+			fOutput<<frame<<"\t";
 			cout<<frame<<"\t";
 			if(frame==i)
 				isThere_=true;
 		}
+		fOutput<<"\n";
 		cout<<"\n";
 		if(!isThere_)
 		{
@@ -265,12 +286,20 @@ void opt(vector<int> tab[])
 	}
 	for(auto &ii: frames)
 	{
+		fOutput<<ii<<"\t";
 		cout<<ii<<"\t";
 	}
-//	for(auto i=0; i<maxID; ++i)
-//	{
-//		cout<<'\n'<<i<<'\t'<<errors[i];
-//	}
+
+	fOutput<<"\n\nNo of page faults for every page ID:\n";
+	fOutput<<"------------------------------------";
+	cout<<"\n\nNo of page faults for every page ID:\n";
+	cout<<"------------------------------------";
+	for(auto i=0; i<maxID; ++i)
+	{
+		fOutput<<'\n'<<i<<":\t"<<errors[i];
+		cout<<'\n'<<i<<":\t"<<errors[i];
+	}
+	fOutput<<"\n\n% of page faults among all requests: "<<static_cast<double>(sumTab(errors,maxID))/(static_cast<double>(tab[0].size()))*100;
 	cout<<"\n\n% of page faults among all requests: "<<static_cast<double>(sumTab(errors,maxID))/(static_cast<double>(tab[0].size()))*100;
 }
 
@@ -288,6 +317,10 @@ int prevRequest(vector<int> &givenVector, size_t currentPos, int &currentVal)
 
 void lru(vector<int> tab[])
 {
+	fOutput<<"Algorithm: LRU\n\nstates of frames:\n";
+	fOutput<<"-----------------\n";
+	cout<<"states of frames:\n";
+	cout<<"-----------------\n";
 	const size_t maxID=vectorMax(tab[0])+1;
 	// { noOfErrors[ForThisID] }
 	int errors[maxID];
@@ -306,10 +339,12 @@ void lru(vector<int> tab[])
 		bool isThere_=false;
 		for(auto &frame: frames)
 		{
+			fOutput<<frame<<"\t";
 			cout<<frame<<"\t";
 			if(frame==i)
 				isThere_=true;
 		}
+		fOutput<<"\n";
 		cout<<"\n";
 		if(!isThere_)
 		{
@@ -331,12 +366,20 @@ void lru(vector<int> tab[])
 	}
 	for(auto &ii: frames)
 	{
+		fOutput<<ii<<"\t";
 		cout<<ii<<"\t";
 	}
-//	for(auto i=0; i<maxID; ++i)
-//	{
-//		cout<<'\n'<<i<<'\t'<<errors[i];
-//	}
+
+	fOutput<<"\n\nNo of page faults for every page ID:\n";
+	fOutput<<"------------------------------------";
+	cout<<"\n\nNo of page faults for every page ID:\n";
+	cout<<"------------------------------------";
+	for(auto i=0; i<maxID; ++i)
+	{
+		fOutput<<'\n'<<i<<":\t"<<errors[i];
+		cout<<'\n'<<i<<":\t"<<errors[i];
+	}
+	fOutput<<"\n\n% of page faults among all requests: "<<static_cast<double>(sumTab(errors,maxID))/(static_cast<double>(tab[0].size()))*100;
 	cout<<"\n\n% of page faults among all requests: "<<static_cast<double>(sumTab(errors,maxID))/(static_cast<double>(tab[0].size()))*100;
 }
 
@@ -355,6 +398,10 @@ int appearCount(vector<int> &tab, size_t currentPos, int val)
 
 void mfu(vector<int> tab[])
 {
+	fOutput<<"Algorithm: MFU\n\nstates of frames:\n";
+	fOutput<<"-----------------\n";
+	cout<<"states of frames:\n";
+	cout<<"-----------------\n";
 	const size_t maxID=vectorMax(tab[0])+1;
 	// { noOfErrors[ForThisID] }
 	int errors[maxID];
@@ -374,6 +421,7 @@ void mfu(vector<int> tab[])
 		bool isThere_=false;
 		for(auto &frame: frames)
 		{
+			fOutput<<frame<<"\t";
 			cout<<frame<<"\t";
 			if(frame==i)
 				isThere_=true;
@@ -404,15 +452,24 @@ void mfu(vector<int> tab[])
 			frames[toChange[0]]=i;
 			++errors[static_cast<size_t>(i)];
 		}
+		fOutput<<"\n";
 		cout<<"\n";
 	}
 	for(auto &ii: frames)
 	{
+		fOutput<<ii<<"\t";
 		cout<<ii<<"\t";
 	}
-//	for(auto i=0; i<maxID; ++i)
-//	{
-//		cout<<'\n'<<i<<'\t'<<errors[i];
-//	}
+
+	fOutput<<"\n\nNo of page faults for every page ID:\n";
+	fOutput<<"------------------------------------";
+	cout<<"\n\nNo of page faults for every page ID:\n";
+	cout<<"------------------------------------";
+	for(auto i=0; i<maxID; ++i)
+	{
+		fOutput<<'\n'<<i<<":\t"<<errors[i];
+		cout<<'\n'<<i<<":\t"<<errors[i];
+	}
+	fOutput<<"\n\n% of page faults among all requests: "<<static_cast<double>(sumTab(errors,maxID))/(static_cast<double>(tab[0].size()))*100;
 	cout<<"\n\n% of page faults among all requests: "<<static_cast<double>(sumTab(errors,maxID))/(static_cast<double>(tab[0].size()))*100;
 }
